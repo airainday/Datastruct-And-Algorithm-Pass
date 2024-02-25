@@ -283,40 +283,144 @@ class Solution:
         return ret
 ```
 8. [复杂链表的复制](https://www.nowcoder.com/practice/f836b2c43afc4b35ad6adc41ec941dba?tpId=13&&tqId=11178&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-  两种解法，一种空间复杂度为O(n),一种为O(1)
-9. [字符串的排列](https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&&tqId=11180&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-  依旧不会写
-10. [最小的K个数](https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&&tqId=11182&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    思想其实很简单，主要是heapq模块的应用
-11. [连续子数组的最大和_牛客题霸](https://www.nowcoder.com/practice/459bd355da1549fa8a49e350bf3df484?tpId=13&&tqId=11183&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    好题，动态规划的思想值的好好研究
-12. [整数中1出现的次数](https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&&tqId=11184&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    找规律
-13. [把数组排成最小的数(nowcoder.com)](https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&&tqId=11185&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    排序就完事了
-14. [丑数](https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&&tqId=11186&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    很棒，又是小顶堆
-15. [两个链表的第一个公共结点](https://www.nowcoder.com/practice/6ab1d9a29e88450685099d45c9e31e46?tpId=13&&tqId=11189&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    挺简单的，没那么难
-16. [判断是不是平衡二叉树](https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&&tqId=11192&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    还需再做一遍，思路不够清晰
-17. [和为S的两个数字](https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&&tqId=11195&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    挺好的，有思路也要能写出来
-18. [孩子们的游戏(圆圈中最后剩下的数)](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&&tqId=11199&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    找规律加递归
-19. [求1+2+3+...+n](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&&tqId=11200&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    位运算符 &、|、^、<<、>>、~
-    逻辑运算符 and or not
-    递归+逻辑与的短路特性
-20. [不用加减乘除做加法](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&&tqId=11201&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    知识点：两数异或可以提供两数相加后的非进位信息，两数相与可以提供相加后的进位信息。
-21. [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&&tqId=11205&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    还是不会，没有思路
-22. [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&&tqId=11214&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-    有点难，没思路
-23. [剪绳子(nowcoder.com)](https://www.nowcoder.com/practice/57d85990ba5b440ab888fc72b0751bf8?tpId=13&&tqId=33257&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-24. [矩阵中的路径](https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&&tqId=11218&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-25. [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&&tqId=11219&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+```python
+class Solution:
+    # 返回 RandomListNode
+    def Clone(self, pHead):
+        # write code here
+        # 遍历链表，将next分支连起来
+        if not pHead: return None
+        root_cp = RandomListNode(pHead.label)
+        cur_cp = root_cp
+        cur = pHead
+        # 储存random对应的节点
+        random_list = []
+        while cur:
+            if cur.next:
+                cur_cp.next = RandomListNode(cur.next.label)
+            else:
+                cur_cp.next = None
+            if cur.random:
+                random_list.append(RandomListNode(cur.random.label))
+            else:
+                random_list.append(None)
+
+            cur = cur.next
+            cur_cp = cur_cp.next
+        
+        # 将random节点连接
+        cur = root_cp
+        i = 0
+        while cur:
+            cur.random = random_list[i]
+            i += 1
+            cur = cur.next
+        return root_cp
+```
+
+8. [字符串的排列](https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&&tqId=11180&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+算法复杂度(n!)，字符串过长时，程序运行时间会很长
+
+```python
+class Solution:
+    def Permutation(self , str: str):
+        # write code here
+        n = len(str)
+        if n<=1:
+            return str
+        lst = []
+        for i in range(n):
+            s1 = str[i]
+            for s2 in self.Permutation(str[:i]+str[i+1:]):
+                new_str = s1 + s2
+                if new_str not in lst:
+                    lst.append(new_str)
+        lst=sorted(lst)
+
+        return lst
+    
+if __name__ == "__main__":
+    s = Solution()
+    res = s.Permutation("qwert")
+    print(res,len(res))
+```
+
+
+
+8. [最小的K个数](https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&&tqId=11182&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+     法1：思想其实很简单，主要是heapq模块的应用;
+
+     法2：每次从列表中抽取一个最小的数即可，然后将该最小的数从列表中排除，继续抽取最小的数，直到达到k个
+
+```python
+class Solution:
+    def GetLeastNumbers_Solution(self , input: List[int], k: int):
+        # write code here
+        
+        res = []
+        while len(res) < k:
+            # 排除那个最小元素后的列表
+            min_num = min(input)
+            for i in range(len(input)):
+                if input[i] == min_num:
+                    break
+            if i == len(input)-1:
+                input = input[:i]
+            else:
+                input = input[:i]+input[i+1:]
+            res.append(min_num)
+        return res
+```
+
+8. [53. 最大子数组和 - 力扣（LeetCode）](https://leetcode.cn/problems/maximum-subarray/submissions/504734011/)
+      好题，动态规划的思想值的好好研究
+
+```python
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n<= 1: return nums[0]
+        # dp数组，储存长度从0到len(num_list)的数组的从未知位置到数组长度的子数组的最大值
+        dp = [nums[0]]  
+        res = nums[0]  # 记录整个数组的所有连续子数组和的最大值
+        for i in range(1, n):
+            if nums[i] + dp[i-1] > nums[i]:
+                dp.append(nums[i] + dp[i-1])
+            else:
+                dp.append(nums[i])
+            if dp[i] > res:
+                res = dp[i]
+        return res 
+```
+
+8. [整数中1出现的次数](https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&&tqId=11184&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+       找规律
+9. [把数组排成最小的数(nowcoder.com)](https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&&tqId=11185&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+      排序就完事了
+10. [丑数](https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&&tqId=11186&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+       很棒，又是小顶堆
+11. [两个链表的第一个公共结点](https://www.nowcoder.com/practice/6ab1d9a29e88450685099d45c9e31e46?tpId=13&&tqId=11189&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        挺简单的，没那么难
+12. [判断是不是平衡二叉树](https://www.nowcoder.com/practice/8b3b95850edb4115918ecebdf1b4d222?tpId=13&&tqId=11192&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        还需再做一遍，思路不够清晰
+13. [和为S的两个数字](https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&&tqId=11195&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        挺好的，有思路也要能写出来
+14. [孩子们的游戏(圆圈中最后剩下的数)](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&&tqId=11199&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        找规律加递归
+15. [求1+2+3+...+n](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&&tqId=11200&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        位运算符 &、|、^、<<、>>、~
+        逻辑运算符 and or not
+        递归+逻辑与的短路特性
+16. [不用加减乘除做加法](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&&tqId=11201&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        知识点：两数异或可以提供两数相加后的非进位信息，两数相与可以提供相加后的进位信息。
+17. [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&&tqId=11205&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        还是不会，没有思路
+18. [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&&tqId=11214&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        有点难，没思路
+19. [剪绳子(nowcoder.com)](https://www.nowcoder.com/practice/57d85990ba5b440ab888fc72b0751bf8?tpId=13&&tqId=33257&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+20. [矩阵中的路径](https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&&tqId=11218&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+21. [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&&tqId=11219&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
 ## 第四遍
 1. [二进制中1的个数](https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?tpId=13&&tqId=11164&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
@@ -324,3 +428,5 @@ class Solution:
 3. [顺时针打印矩阵](https://www.nowcoder.com/practice/9b4c81a02cd34f76be2659fa0d54342a?tpId=13&&tqId=11172&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 4. [二叉搜索树的后序遍历序](https://www.nowcoder.com/practice/a861533d45854474ac791d90e447bafd?tpId=13&&tqId=11176&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 5. [二叉树中和为某一值的路径(二)](https://www.nowcoder.com/practice/b736e784e3e34731af99065031301bca?tpId=13&&tqId=11177&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+6. [字符串的排列](https://www.nowcoder.com/practice/fe6b651b66ae47d7acce78ffdd9a96c7?tpId=13&&tqId=11180&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+7. 

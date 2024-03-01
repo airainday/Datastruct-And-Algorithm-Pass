@@ -495,8 +495,44 @@ class Solution:
 ```
 
 8. [和为S的两个数字](https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&&tqId=11195&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-                挺好的，有思路也要能写出来
-
+            
+            ```python
+            class Solution:
+                def FindNumbersWithSum(self , array: List[int], sum: int) -> List[int]:
+                    # write code here
+                    # 运行超时 时间复杂度为O(n**2)
+                    n = len(array)
+                    if n==0: return []
+                    res = []
+                    for i in range(n-1):
+                        if i > (sum // 2 + 1):
+                            break
+                        for j in range(i+1, n):
+                            if array[i] + array[j] == sum:
+                                res.extend([array[i], array[j]])
+                                return res
+                    return []
+                # ------------------------------------------------------------------------------------------------------
+                class Solution:
+                def FindNumbersWithSum(self , array: List[int], sum: int) -> List[int]:
+                    # 根据数组有序性，利用双指针解决问题，时间复杂度为O(n)
+                    n = len(array)
+                    if n == 0: return []
+            
+                    left = 0
+                    right = n-1
+                    while left < right:
+                        if array[left] + array[right] < sum:
+                            left += 1
+                        elif array[left] + array[right] > sum:
+                            right -= 1
+                        else:
+                            return [array[left], array[right]]
+                    return []
+            ```
+            
+            
+            
 9. [孩子们的游戏(圆圈中最后剩下的数)](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&&tqId=11199&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
                 找规律加递归
 

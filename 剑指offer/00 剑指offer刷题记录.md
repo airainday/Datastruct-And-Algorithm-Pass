@@ -495,66 +495,317 @@ class Solution:
 ```
 
 8. [和为S的两个数字](https://www.nowcoder.com/practice/390da4f7a00f44bea7c2f3d19491311b?tpId=13&&tqId=11195&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-            
-            ```python
-            class Solution:
-                def FindNumbersWithSum(self , array: List[int], sum: int) -> List[int]:
-                    # write code here
-                    # 运行超时 时间复杂度为O(n**2)
-                    n = len(array)
-                    if n==0: return []
-                    res = []
-                    for i in range(n-1):
-                        if i > (sum // 2 + 1):
-                            break
-                        for j in range(i+1, n):
-                            if array[i] + array[j] == sum:
-                                res.extend([array[i], array[j]])
-                                return res
-                    return []
-                # ------------------------------------------------------------------------------------------------------
-                class Solution:
-                def FindNumbersWithSum(self , array: List[int], sum: int) -> List[int]:
-                    # 根据数组有序性，利用双指针解决问题，时间复杂度为O(n)
-                    n = len(array)
-                    if n == 0: return []
-            
-                    left = 0
-                    right = n-1
-                    while left < right:
-                        if array[left] + array[right] < sum:
-                            left += 1
-                        elif array[left] + array[right] > sum:
-                            right -= 1
-                        else:
-                            return [array[left], array[right]]
-                    return []
-            ```
-            
-            
-            
-9. [孩子们的游戏(圆圈中最后剩下的数)](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&&tqId=11199&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-                找规律加递归
 
-10. [求1+2+3+...+n](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&&tqId=11200&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-                位运算符 &、|、^、<<、>>、~
-                逻辑运算符 and or not
-                递归+逻辑与的短路特性
+```python 
+class Solution:
+    def FindNumbersWithSum(self , array: List[int], sum: int) -> List[int]:
+        # write code here
+        # 运行超时 时间复杂度为O(n**2)
+        n = len(array)
+        if n==0: return []
+        res = []
+        for i in range(n-1):
+            if i > (sum // 2 + 1):
+                break
+            for j in range(i+1, n):
+                if array[i] + array[j] == sum:
+                    res.extend([array[i], array[j]])
+                    return res
+        return []
+    # ------------------------------------------------------------------------------------------------------
+    class Solution:
+    def FindNumbersWithSum(self , array: List[int], sum: int) -> List[int]:
+        # 根据数组有序性，利用双指针解决问题，时间复杂度为O(n)
+        n = len(array)
+        if n == 0: return []
 
-11. [不用加减乘除做加法](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&&tqId=11201&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-                 知识点：两数异或可以提供两数相加后的非进位信息，两数相与可以提供相加后的进位信息。
+        left = 0
+        right = n-1
+        while left < right:
+            if array[left] + array[right] < sum:
+                left += 1
+            elif array[left] + array[right] > sum:
+                right -= 1
+            else:
+                return [array[left], array[right]]
+        return []
+```
 
-12. [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&&tqId=11205&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-                 还是不会，没有思路
+8. [孩子们的游戏(圆圈中最后剩下的数)](https://www.nowcoder.com/practice/f78a359491e64a50bce2d89cff857eb6?tpId=13&&tqId=11199&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 
-13. [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&&tqId=11214&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
-                 有点难，没思路
+认真读题，在纸上进行模拟，寻找解题方案。
 
-14. [剪绳子(nowcoder.com)](https://www.nowcoder.com/practice/57d85990ba5b440ab888fc72b0751bf8?tpId=13&&tqId=33257&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+```python
+class Solution:
+    def LastRemaining_Solution(self , n: int, m: int) -> int:
+        # write code here
+        if n == 1: return n-1
 
-15. [矩阵中的路径](https://www.nowcoder.com/practice/c61c6999eecb4b8f88a98f66b273a3cc?tpId=13&&tqId=11218&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+        members = list(range(n))
+        cur = 0
+        while len(members) > 1:
+            cur = (cur+(m-1)) % len(members)
+            members.pop(cur)
+            cur = cur % len(members)
+        return members[-1]
+```
 
-16. [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&&tqId=11219&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+8. [求1+2+3+...+n](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&&tqId=11200&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+                  位运算符 &、|、^、<<、>>、~
+                  逻辑运算符 and or not
+                  递归+逻辑与的短路特性
+
+```python
+# 递归，但是用到了if
+class Solution:
+    def __init__(self):
+        self.sum = 0
+
+    def Sum_Solution(self, n):
+        # write code here
+        if n == 0: return 
+        self.sum += n
+        n -= 1
+        self.Sum_Solution(n)
+        return self.sum
+# 不用if，for，while，乘除等
+# 与运算的短路递归，不用if，我们需要知道什么时候终止递归，与运算可以进行短路（第一个条件不满足就不会执行第二个语句）
+class Solution:
+    def __init__(self):
+        self.sum = 0
+
+    def Sum_Solution(self, n):
+        # write code here
+        n > 1 and self.Sum_Solution(n-1)
+        self.sum += n
+        return self.sum
+```
+
+8. [不用加减乘除做加法](https://www.nowcoder.com/practice/59ac416b4b944300b617d4f7f111b215?tpId=13&&tqId=11201&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+       知识点：两数异或可以提供两数相加后的非进位信息，两数相与可以提供相加后的进位信息。这题有问题，说不能用加减法可是题解中还是用了，而且下面的题解如果输入为-1,0时会出错。
+
+```python
+class Solution:
+    def Add(self , num1: int, num2: int) -> int:
+        # write code here
+        # 两数相与得到两数相加时对应每一位的进位情况，两数相异或得到每一位的实际值
+        # 将进位左移1位，再次与上次异或结果进行相与和异或，直到进位为0，返回异或结果即可
+        while num2:
+            a = (num2 & num1) << 1  # 进位
+            b = num2 ^ num1  # 非进位
+            b = b & 0xFFFFFFFF
+            num2 = a
+            num1 = b
+        return num1 if num1>>31==0 else num1 - 4294967296
+```
+
+8. [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&&tqId=11205&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+题目描述：请实现一个函数用来匹配包括`.`和`*`的正则表达式。模式中的字符'.'表示任意一个字符，而`*`表示它前面的字符可以出现任意次（包含0次）。 在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和`ab*ac*a`匹配，但是与"aa.a"和"ab*a"均不匹配。
+
+```python
+"aaa", "a*a", "ab*ac*a"  # True
+```
+
+```python
+def is_match(s, p):
+    if not p:
+        return not s
+    # 判断第一个字符是否匹配
+    first_match = bool(s) and p[0] in {s[0], '.'}
+    if len(p) >= 2 and p[1] == '*':
+        # is_match(s, p[2:])相当于模版中当前*前面字符出现了0次
+        # first_match and is_match(s[1:], p)则是出现了1次或者多次
+        return is_match(s, p[2:]) or (first_match and is_match(s[1:], p))
+    else:
+        return first_match and is_match(s[1:], p[1:])
+
+# 测试
+print(is_match("aaa", "a*a"))   # True
+print(is_match("abaca", "ab*a"))   # False
+```
+
+8. [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&&tqId=11214&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+值的好好研究
+
+```python
+import sys
+#设置递归深度
+sys.setrecursionlimit(100000) 
+class Solution:
+    def __init__(self):
+        self.index = 0 
+        self.s = ""
+
+    #处理序列化（递归）
+    def SerializeFunction(self, root):
+        #空节点
+        if not root:
+            self.s += '#'
+            return
+        #根节点
+        self.s += (str)(root.val) + '!'
+        #左子树
+        self.SerializeFunction(root.left) 
+        #右子树
+        self.SerializeFunction(root.right) 
+    
+    def Serialize(self, root): 
+        if not root:
+            return '#'
+        self.s = ""
+        self.SerializeFunction(root)
+        return self.s
+    
+    #处理反序列化的功能函数（递归）
+    def DeserializeFunction(self, s: str):
+        # 到达叶节点时，构建完毕，返回继续构建父节点
+        #空节点
+        if self.index >= len(s) or s[self.index] == "#": 
+            self.index += 1
+            return None
+        # 数字转换
+        val = 0
+        #遇到分隔符或者结尾
+        while s[self.index] != '!' and self.index != len(s):
+            val = val * 10 + (int)(s[self.index])
+            self.index += 1
+        root = TreeNode(val)
+        #序列到底了，构建完成
+        if self.index == len(s): 
+            return root
+        else:
+            self.index += 1
+        #反序列化与序列化一致，都是前序
+        root.left = self.DeserializeFunction(s)  
+        root.right = self.DeserializeFunction(s)
+        return root
+
+    def Deserialize(self, s):
+        if s == "#":
+            return None
+        return self.DeserializeFunction(s)
+```
+
+
+
+8. [剪绳子(nowcoder.com)](https://www.nowcoder.com/practice/57d85990ba5b440ab888fc72b0751bf8?tpId=13&&tqId=33257&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+这种没有一下看出思路的题目，可以尝试模拟找规律，从n=1~n=xxx，多模拟几个找找规律
+
+```python
+class Solution:
+    def cutRope(self , n: int) -> int:
+        # write code here
+        if n <= 4: return n
+        # 将n分成由3组成的段，如果分不成则尝试2
+        num_3 = n // 3
+        if n % 3 == 0: return 3**num_3
+        # 如果余数为2
+        if n % 3 == 2: return 3**num_3*2
+        # 如果余数为1，则减少3的那一段，结合1，分成2段2*2
+        if n % 3 == 1: return 3**(num_3-1)*2*2
+```
+
+8. 矩形中的路径
+
+**题目描述：**请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。*路径可以从矩阵中的任意一个格子开始*，每一步可以在矩阵中向左，向右，向上，向下移动一个格子。如果一条路径经过了矩阵中的某一个格子，则之后不能再次进入这个格子。 例如 a b c e s f c s a d e e 这样的3 X 4 矩阵中包含一条字符串"bcced"的路径，但是矩阵中不包含"abcb"路径，因为字符串的第一个字符b占据了矩阵中的第一行第二个格子之后，路径不能再次进入该格子。
+
+**示例：**"ABCESFCSADEE",3,4,"ABCCED"：true             "ABCESFCSADEE",3,4,"ABCB"： false
+
+```python
+def exist(board, word):
+    if not board: return False
+
+    rows = len(board)
+    cols = len(board[0])
+    # 构建一个矩阵，标志board中元素访问状态
+    visited = [[False for _ in range(cols)] for _ in range(rows)]
+
+    def dfs(i, j, index):
+        # 深度优先遍历
+        if index == len(word):  # index表示当前正在匹配的word中字符的索引
+            return True
+        if i < 0 or i >= rows or j < 0 or j >= cols or visited[i][j] or board[i][j] != word[index]:
+            return False
+
+        visited[i][j] = True  # 说明当前字符是匹配到了
+
+        # 递归判断上下左右字符与word中下一个字符是否匹配
+        if dfs(i+1, j, index+1) or dfs(i-1, j, index+1) or dfs(i, j+1, index+1) or dfs(i, j-1, index+1):
+            return True
+
+        # 如果都行不通，将当前board中的字符设置为未访问过，以方便其他路径进行访问
+        visited[i][j] = False
+
+        return False
+
+    for i in range(rows):
+        for j in range(cols):
+            if dfs(i, j, 0):
+                return True
+    return False
+
+
+if __name__ == "__main__":
+    # 示例用法
+    board = [
+    ['a','b','c','e'],
+    ['s','f','c','s'],
+    ['a','d','e','e']
+    ]
+    word1 = "bcced"
+    word2 = "abcb"
+    print(exist(board, word1))  # 输出 True
+    print(exist(board, word2))  # 输出 False
+```
+
+8. [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&&tqId=11219&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+
+递归与回溯，和矩形中的路径相似的题目。多练几遍吧
+
+```python
+"""
+定义一个函数 get_digit_sum 来计算一个数字的数位之和。
+定义一个函数 movingCountDFS 来进行深度优先搜索，从起始位置 (0, 0) 开始，搜索所有符合条件的格子。
+在搜索过程中，判断当前位置是否越界、是否已经访问过、以及数位之和是否符合条件。
+如果当前位置符合条件，将其标记为已访问，并继续向四个方向进行深度优先搜索。
+最终返回所有符合条件的格子数目。
+"""
+
+def movingCount(rows, cols, threshold):
+    def get_digit_sum(num):
+        sum = 0
+        while num > 0:
+            sum += num % 10
+            num //= 10
+        return sum
+    
+    def movingCountDFS(i, j):
+        if i < 0 or i >= rows or j < 0 or j >= cols or visited[i][j] or get_digit_sum(i) + get_digit_sum(j) > threshold:
+            return 0
+
+        visited[i][j] = True
+        count = 1
+        count += movingCountDFS(i+1, j)
+        count += movingCountDFS(i-1, j)
+        count += movingCountDFS(i, j+1)
+        count += movingCountDFS(i, j-1)  
+        return count
+
+    visited = [[False for _ in range(cols)] for _ in range(rows)]
+    return movingCountDFS(0, 0)
+
+
+# 示例用法
+rows = 3
+cols = 3
+threshold = 2
+print(movingCount(rows, cols, threshold))  # 输出 6
+```
+
+
 
 ## 第四遍
 1. [二进制中1的个数](https://www.nowcoder.com/practice/8ee967e43c2c4ec193b040ea7fbb10b8?tpId=13&&tqId=11164&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
@@ -566,3 +817,8 @@ class Solution:
 7. [整数中1出现的次数](https://www.nowcoder.com/practice/bd7f978302044eee894445e244c7eee6?tpId=13&&tqId=11184&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 8. [把数组排成最小的数(nowcoder.com)](https://www.nowcoder.com/practice/8fecd3f8ba334add803bf2a06af1b993?tpId=13&&tqId=11185&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
 9. [丑数](https://www.nowcoder.com/practice/6aa9e04fc3794f68acf8778237ba065b?tpId=13&&tqId=11186&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+10. [求1+2+3+...+n（写出所有解题方法）](https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1?tpId=13&&tqId=11200&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+11. [正则表达式匹配](https://www.nowcoder.com/practice/45327ae22b7b413ea21df13ee7d6429c?tpId=13&&tqId=11205&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+12. [序列化二叉树](https://www.nowcoder.com/practice/cf7e25aa97c04cc1a68c8f040e71fb84?tpId=13&&tqId=11214&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
+13. 矩形中的路径
+14. [机器人的运动范围](https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&&tqId=11219&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking)
